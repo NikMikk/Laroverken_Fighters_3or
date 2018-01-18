@@ -11,9 +11,10 @@ namespace LäroverketFighters
     //vilka egenskaper den har
     class Enemy
     {
-        public int hp;
+        int hp;
         public int dmg;
         public string name;
+        public bool isAlive = true;
 
         //Initialize, sätt värden på variablerna
         public void Setup()
@@ -34,6 +35,28 @@ namespace LäroverketFighters
             };
 
             name = namesToPick[randomness.Next(0, namesToPick.Length)];
+        }//End of void Setup
+
+        public void TakeDamage(int _damage)
+        {
+            hp -= _damage;
+
+            if (hp < 0)
+            {
+                isAlive = false;
+            }
         }
-    }
+
+        public void Heal(int _healAmount)
+        {
+            hp += _healAmount;
+        }
+
+        public void DisplayInfo()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(name + "'s HP:" + hp);
+        }
+
+    }//End of class
 }

@@ -8,6 +8,7 @@ namespace LäroverketFighters
 {
     class Program
     {
+        //Skapar ett objekt från Enemy byggritningen (klass)
         static Enemy enemy = new Enemy();
 
         static Random randomness = new Random();
@@ -26,7 +27,7 @@ namespace LäroverketFighters
 
 
             //Game loop. As long as both lives, do this
-            while (playerHP > 0 && enemy.hp > 0)
+            while (playerHP > 0 && enemy.isAlive == true)
             {
                 Console.Clear();
 
@@ -39,14 +40,14 @@ namespace LäroverketFighters
                 userInput = Console.ReadLine();
 
                 //User choice
-                if (userInput == "1") //attack
+                if (userInput == "1") //player attack
                 {
                     playerDmg = randomness.Next(2, 6);
-                    enemy.hp -= playerDmg;
+                    enemy.TakeDamage(playerDmg);
 
                     Console.WriteLine("Player attacked for " + playerDmg);
                 }
-                else if (userInput == "2") //heal 
+                else if (userInput == "2") //player heal 
                 {
                     int healAmount = randomness.Next(2, 6);
                     playerHP += healAmount;
@@ -69,7 +70,7 @@ namespace LäroverketFighters
             } //end of while loop
 
             //When we are here someone died.
-            if (enemy.hp < 1)
+            if (enemy.isAlive == false)
             {
                 //If enemy died
                 Console.Write("\n" + enemy.name + " died!");
@@ -88,14 +89,14 @@ namespace LäroverketFighters
             if(randomness.Next(0, 10) >= 7) //Enemy heals if number is greater than X
             {
                 int healAmount = randomness.Next(2, 6);
-                enemy.hp += healAmount;
+                enemy.Heal(healAmount);
                 Console.WriteLine(enemy.name + " healed for " + healAmount);
             }
             else
             {
                 //Enemy attacks
                 enemy.dmg = randomness.Next(2, 4);
-                playerHP -= enemy.hp;
+                playerHP -= enemy.dmg   ;
 
                 Console.WriteLine(enemy.name + " attacked for " + enemy.dmg);
             }
@@ -106,8 +107,8 @@ namespace LäroverketFighters
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Player HP:" + playerHP);
 
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(enemy.name + "'s HP:" + enemy.hp);
+
+            enemy.DisplayInfo();
         }
     }
 }
