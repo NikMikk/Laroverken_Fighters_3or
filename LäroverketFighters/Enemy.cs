@@ -11,13 +11,19 @@ namespace LäroverketFighters
     //vilka egenskaper den har
     class Enemy
     {
-        int hp;
+        protected int hp;
         public int dmg;
         public string name;
         public bool isAlive = true;
 
+        //Klassens konstruktor
+        public Enemy()
+        {
+            Setup();
+        }
+
         //Initialize, sätt värden på variablerna
-        public void Setup()
+        private void Setup()
         {
             Random randomness = new Random();
 
@@ -26,19 +32,38 @@ namespace LäroverketFighters
 
             string[] namesToPick =
             {
-                //"Uganda Warlord", //0
-                //"Danne", //1
-                //"Zlatan", //2
-                //"Big Bad Boss", //3
-                //"CSN", //4
-                //"Skolverket", //5
-                "Misha"
+                "Uganda Warlord", //0
+                "Danne", //1
+                "Zlatan", //2
+                "Big Bad Boss", //3
+                "CSN", //4
+                "Skolverket", //5
             };
 
             name = namesToPick[randomness.Next(0, namesToPick.Length)];
         }//End of void Setup
 
-        public void TakeDamage(int _damage)
+        public void DecideAction()
+        {
+            Random randomness = new Random();
+
+            if (randomness.Next(0, 10) >= 7) //Enemy heals if number is greater than X
+            {
+                int healAmount = randomness.Next(2, 6);
+                Heal(healAmount);
+                Console.WriteLine(name + " healed for " + healAmount);
+            }
+            else
+            {
+                //Enemy attacks
+                dmg = randomness.Next(2, 4);
+                Program.playerHP -= dmg; //TODO Remove this Program.PlayerHP, make system
+
+                Console.WriteLine(name + " attacked for " + dmg);
+            }
+        }
+
+        public virtual void TakeDamage(int _damage)
         {
             hp -= _damage;
 
