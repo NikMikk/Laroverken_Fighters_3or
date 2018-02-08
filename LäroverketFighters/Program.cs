@@ -27,7 +27,7 @@ namespace LäroverketFighters
 
 
             //Game loop. As long as both lives, do this
-            while (playerHP > 0 && enemy.isAlive == true)
+            while (playerHP > 1 && enemy.isAlive == true)
             {
                 Console.Clear();
 
@@ -106,7 +106,6 @@ namespace LäroverketFighters
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Player HP:" + playerHP);
-
 
             enemy.DisplayInfo();
         }

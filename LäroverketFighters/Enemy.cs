@@ -26,12 +26,13 @@ namespace LäroverketFighters
 
             string[] namesToPick =
             {
-                "Uganda Warlord", //0
-                "Danne", //1
-                "Zlatan", //2
-                "Big Bad Boss", //3
-                "CSN", //4
-                "Skolverket" //5
+                //"Uganda Warlord", //0
+                //"Danne", //1
+                //"Zlatan", //2
+                //"Big Bad Boss", //3
+                //"CSN", //4
+                //"Skolverket", //5
+                "Misha"
             };
 
             name = namesToPick[randomness.Next(0, namesToPick.Length)];
@@ -41,7 +42,7 @@ namespace LäroverketFighters
         {
             hp -= _damage;
 
-            if (hp < 0)
+            if (hp < 1)
             {
                 isAlive = false;
             }
