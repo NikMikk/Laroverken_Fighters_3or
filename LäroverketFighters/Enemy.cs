@@ -11,6 +11,8 @@ namespace LäroverketFighters
     //vilka egenskaper den har
     class Enemy
     {
+        protected Random randomness = new Random();
+
         protected int hp;
         public int dmg;
         public string name;
@@ -25,8 +27,6 @@ namespace LäroverketFighters
         //Initialize, sätt värden på variablerna
         private void Setup()
         {
-            Random randomness = new Random();
-
             hp = randomness.Next(6, 15);
             dmg = randomness.Next(2, 6);
 
@@ -43,10 +43,8 @@ namespace LäroverketFighters
             name = namesToPick[randomness.Next(0, namesToPick.Length)];
         }//End of void Setup
 
-        public void DecideAction()
+        public virtual void DecideAction()
         {
-            Random randomness = new Random();
-
             if (randomness.Next(0, 10) >= 7) //Enemy heals if number is greater than X
             {
                 int healAmount = randomness.Next(2, 6);

@@ -8,7 +8,8 @@ namespace LäroverketFighters
 {
     class Boss : Enemy
     {
-        private int armor = 2, critChance, extraHP;
+        private int armor = 2, critChance = 10; //10%, critChance is procentage
+        private int critMultiplier = 2; 
 
         public override void TakeDamage(int _damage)
         {
@@ -21,6 +22,24 @@ namespace LäroverketFighters
             {
                 isAlive = false;
             }
+        }
+
+        public override void DecideAction()
+        {
+            //if the number is lower than the crit chance, then crit
+            if (randomness.Next(1, 100) <= critChance)
+            {
+                AttackCrit();   
+            }
+            else
+            {
+                base.DecideAction();
+            }
+        }
+
+        void AttackCrit()
+        {
+            Console.WriteLine("BOSS CRIT ATTACK");
         }
     }
 }
